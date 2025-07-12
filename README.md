@@ -17,6 +17,18 @@ BitzLabsの将来のビジョンを示すためのプレースホルダーです
 -   **ジオメトリエンジン**: ブーリアン演算や、**テッセレーション**（BREP/CSGからMeshへの変換）などの形状操作を行います。
 -   **レンダラー/コンバーター**: `Geo3DAST`を、Webで表示可能な形式（glTFなど）や、レイトレーシング用のデータに変換します。
 
+## ✅ 初期開発ToDoリスト (概念設計のみ)
+
+1.  **`Geo3DAST`の型定義 (構想)**:
+    *   `IGeo3DNode`インターフェースを定義。
+    *   `BooleanOperationNode`, `TransformNode`, `PrimitiveNode` (CSG)
+    *   `BrepSolidNode` (BREP)
+    *   `MeshNode` (`Vertices`, `Indices`, `Normals`, `UVs`)
+2.  **ジオメトリエンジンの主要機能 (構想)**:
+    *   `Tessellator`: BREP/CSGから`MeshNode`を生成する機能のインターフェースを設計。
+3.  **プロジェクトファイルの作成**:
+    *   空のC#クラスライブラリプロジェクト (`Bitz3DGeo.csproj`) と、構想をまとめたドキュメント（`docs/ast-design.md`）を作成。
+
 ## このライブラリの位置づけ
 
 将来的に、BitzLabsを2Dと3Dが統合された完全なテクニカルドキュメンテーション・プラットフォームへと進化させるための基盤です。`BitzDoc`と連携し、ドキュメント内にインタラクティブな3Dモデルを埋め込めるようにすることを目指します。
@@ -25,29 +37,3 @@ BitzLabsの将来のビジョンを示すためのプレースホルダーです
 
 -   `BitzAstCore`
 -   `BitzParser`
-
-## **✅ 初期開発ToDoリスト (概念設計のみ、メッシュ追加版)**
-
-1.  **`Geo3DAST`の型定義 (構想)**:
-    *   `IGeo3DNode` インターフェース（`IAstNode`を継承）。
-    *   **CSGノード**:
-        *   `BooleanOperationNode` (`OperationType`, `LeftChild`, `RightChild`)
-        *   `TransformNode` (`TransformMatrix`, `Child`)
-        *   `PrimitiveNode` (`ShapeType`, `Parameters`)
-    *   **BREPノード**:
-        *   `BrepSolidNode` (`Faces`, `Edges`, `Vertices`)
-    *   **メッシュノード (追加)**:
-        *   **`MeshNode`**:
-            *   `Vertices: Vector3[]` (頂点座標の配列)
-            *   `Indices: int[]` (頂点を結びつけて三角形を形成するためのインデックス配列)
-            *   `Normals?: Vector3[]` (各頂点の法線ベクトル、スムーズシェーディング用)
-            *   `UVs?: Vector2[]` (テクスチャマッピング用のUV座標)
-
-2.  **ジオメトリエンジンの主要機能 (構想)**:
-    *   `Tessellator`: `BrepSolidNode`やCSGツリーを受け取り、それを近似する`MeshNode`を生成する機能。これは3Dジオメトリカーネルの最も重要な機能の一つです。
-
-3.  **プロジェクトファイルの作成**:
-    *   空のC#クラスライブラリプロジェクト (`Bitz3DGeo.csproj`) を作成。
-    *   構想をまとめたドキュメント（例: `docs/ast-design.md`）を作成し、上記の型定義案を記述する。
-
----
